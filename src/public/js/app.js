@@ -8,14 +8,14 @@ room.hidden = true;
 
 let roomName = "";
 
-// 채팅 메세지 생성
+// 받은 채팅 메세지 노출
 function addMessage(message) {
     const ul = room.querySelector("ul");
     const li = document.createElement("li");
     li.innerText = message;
     ul.append(li);
 }
-
+// 송신한 채팅 메세지 노출
 function handleMessageSubmit(event) {
     event.preventDefault();
     const input = room.querySelector("input");
