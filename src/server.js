@@ -57,6 +57,9 @@ wsServer.on("connection", socket => {
         console.log(wsServer.sockets.adapter);
         console.log(`Socket Event: ${event}`);
     });
+
+    socket.emit("show_all_rooms", publicRooms());
+
     socket.on("enter_room", (roomName, done) => {
         socket.join(roomName);
         done(countRooms(roomName));

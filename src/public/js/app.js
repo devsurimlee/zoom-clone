@@ -67,11 +67,26 @@ socket.on("bye", (user, newCount) => {
 socket.on("new_message", addMessage);
 
 socket.on("room_change", (rooms) => {
+    handleRoomList(rooms);
+});
+
+socket.on("show_all_rooms", (rooms) => {
+    handleRoomList(rooms);
+});
+
+function handleRoomList(rooms) {
     const roomList = welcome.querySelector("ul");
     roomList.innerText = "";
     rooms.forEach(room => {
         const li = document.createElement("li");
         li.innerText = room;
         roomList.append(li);
-    })
-});
+    });
+    if (rooms.length === 0) {
+        const li = document.createElement("li");
+        li.innerText = "It's quiet for new.. You can make new Room!";
+        roomList.append(li);
+    }
+};
+
+
