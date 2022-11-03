@@ -15,15 +15,22 @@ function addMessage(message) {
     li.innerText = message;
     ul.append(li);
 }
+
 // 송신한 채팅 메세지 노출
 function handleMessageSubmit(event) {
     event.preventDefault();
-    const input = room.querySelector("input");
+    const input = room.querySelector("#msg input");
     const value = input.value;
     socket.emit("new_message", input.value, roomName, () => {
-        addMessage(`You: ${ value }`);
+        addMessage(`You: ${value}`);
     });
     input.value = "";
+}
+
+function handleNicknameSubmit(event) {
+    event.preventDefault();
+    const input = room.querySelector("#nickname input");
+    socket.emit("nickname", input.value);
 }
 
 // 채팅방 입장시 채팅방명 노출
@@ -32,8 +39,10 @@ function showRoom() {
     room.hidden = false;
     const title = document.getElementById("title");
     title.innerText = `Room ${roomName}`;
-    const form = room.querySelector("form");
-    form.addEventListener("submit", handleMessageSubmit);
+    const msgForm = room.querySelector("#msg");
+    const nicknameForm = room.querySelector("#nickname");
+    msgForm.addEventListener("submit", handleMessageSubmit);
+    nicknameForm.addEventListener("submit", handleNicknameSubmit);
 }
 
 // 채팅방 입장
@@ -47,12 +56,12 @@ function handleRoomSubmit(event) {
 
 form.addEventListener("submit", handleRoomSubmit);
 
-socket.on("welcome", () => {
-    addMessage("Someone joined~");
+socket.on("welcome", (user) => {
+    addMessage(`${user} joined~`);
 });
 
-socket.on("bye", () => {
-    addMessage("Someone left~");
+socket.on("bye", (user) => {
+    addMessage(`${user} left..`);
 });
 
 socket.on("new_message", addMessage);
