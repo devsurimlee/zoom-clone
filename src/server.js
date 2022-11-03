@@ -16,7 +16,12 @@ const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 
 wsServer.on("connection", socket => {
-    console.log(socket);
+    socket.on("enter_room", (msg, callback) => {
+        console.log(msg);
+        setTimeout(() => {
+            callback();
+        }, 3000);
+    });
 });
 
 httpServer.listen(3000, handleListen);
