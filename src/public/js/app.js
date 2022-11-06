@@ -70,8 +70,8 @@ function handleMuteClick() {
 };
 
 function handleCameraClick() {
-    myStream.getAudioTracks()
-        .getVideoTracks().forEach(track => track.enabled = !track.enabled);
+    myStream.getVideoTracks()
+        .forEach(track => track.enabled = !track.enabled);
     if (!cameraOff) {
         cameraBtn.innerText = "Turn Camera On";
         cameraOff = true;
