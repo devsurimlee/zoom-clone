@@ -30,7 +30,7 @@ async function getMedia() {
             video: true,
             audio: true,
         });
-        myFace.srcObject = myFace;
+        myFace.srcObject = myStream;
         await getCameras();
     } catch (e) {
         console.log(e);
