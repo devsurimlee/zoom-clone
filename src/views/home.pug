@@ -5,21 +5,37 @@ html(lang="kr")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Noom
-        link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
+        //link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
     body
         header
             h1 Noom
         main
             div#welcome
                 form
+                    text Make new room:
                     input(placeholder="room name", required="text")
-                    button Enter Room
+                    button Make
+            div#nickname
+                form
+                    text nickname:
+                    input(value="Anonymous", required="text")
+                    button Save
+            div#roomList
+                h3 Open Rooms
+                ul
+                    li It's quiet for new.. You can make new Room!
             div#call
                 div#myStream
-                    video#myFace(autoplay, playsinline, width="400", height="400")
+                    video#myFace(autoplay, playsinline, width="300", height="300", style="background:#000")
                     button#mute Mute
                     button#camera Turn Camera Off
                     select#cameras(value="device") Face Camera
-            video#peerFace(autoplay, playsinline, width="400", height="400")
+                div#peerStream
+                    video#peerFace(autoplay, playsinline, width="300", height="300", style="background:#ffeb3b61")
+                div#msgList
+                    ul(style="background:skyblue")
+                    form#msg
+                        input(placeholder="message", required, type=text)
+                        button Send
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")
